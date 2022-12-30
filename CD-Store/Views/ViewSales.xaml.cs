@@ -9,28 +9,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.SQLite;
+using CD_Store.ViewModels;
 
 namespace CD_Store.Views
 {
     /// <summary>
-    /// Lógica de interacción para MainPage.xaml
+    /// Lógica de interacción para ViewSales.xaml
     /// </summary>
-    public partial class MainPage : Window
+    public partial class ViewSales : UserControl
     {
-        ViewSales viewSales;
-        public MainPage()
+        public ViewSales()
         {
             InitializeComponent();
-            viewSales = new ViewSales();
-        }
-
-        private void SalesBttn_Click(object sender, RoutedEventArgs e)
-        {
-            MainContainer.Children.Clear();
-            MainContainer.Children.Add(viewSales);
+            DataContext = new VMSales();
         }
     }
 }
