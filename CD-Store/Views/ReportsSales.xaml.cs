@@ -1,5 +1,4 @@
-﻿using CD_Store.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +15,13 @@ using System.Windows.Shapes;
 namespace CD_Store.Views
 {
     /// <summary>
-    /// Lógica de interacción para ItemPage.xaml
+    /// Lógica de interacción para ReportsSales.xaml
     /// </summary>
-    public partial class ItemPage : UserControl
+    public partial class ReportsSales : UserControl
     {
-        public ItemPage()
+        public ReportsSales()
         {
             InitializeComponent();
         }
-
     }
 }

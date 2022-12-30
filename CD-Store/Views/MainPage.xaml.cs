@@ -24,6 +24,7 @@ namespace CD_Store.Views
     {
         ViewSales viewSales;
         ItemPage itemPage;
+        ReportsSales reportsSales = new ReportsSales();
         SQLiteClass sqliteClass = new SQLiteClass();
         public MainPage()
         {
@@ -44,6 +45,12 @@ namespace CD_Store.Views
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(itemPage);
+        }
+
+        private void ReportsSales_Click(object sender, RoutedEventArgs e)
+        {
+            MainContainer.Children.Clear();
+            MainContainer.Children.Add(reportsSales);
         }
     }
 }

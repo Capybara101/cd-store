@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -48,14 +49,14 @@ namespace CD_Store.Models
             }
         }
 
-        public List<Category> ReadCategoryTable() {
+        public ObservableCollection<Category> ReadCategoryTable() {
             sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand("SELECT * FROM category", connection);
                 SQLiteDataReader reader = command.ExecuteReader();
-                List<Category> allCategories = new List<Category>();
+                ObservableCollection<Category> allCategories = new ObservableCollection<Category>();
                 while (reader.Read())
                 {
                     Category category = new Category();
@@ -74,12 +75,12 @@ namespace CD_Store.Models
             }
         }
 
-        public void InsertCategory(Category category) {
+        public void InsertCategory() {
             sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO category (name) VALUES ('{category.name}')", connection);
+                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO category (name) VALUES ('{name}')", connection);
                 command.ExecuteNonQuery();
                 connection.Close();
             }
