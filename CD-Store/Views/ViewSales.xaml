@@ -5,11 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CD_Store.Views"
              mc:Ignorable="d">
-    <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,0.2,2" ItemsSource="{Binding Items}">
+    <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,0.2,2" ItemsSource="{Binding Items}" SelectionMode="Multiple" SelectedItem="{Binding ItemsSelected}">
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>
-                <WrapPanel Width="900"/>
+                <WrapPanel/>
             </ItemsPanelTemplate>
         </ListView.ItemsPanel>
     </ListView>
+
 </UserControl>
