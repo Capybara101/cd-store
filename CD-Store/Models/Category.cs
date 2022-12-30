@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace CD_Store.Models
 {
@@ -38,73 +39,109 @@ namespace CD_Store.Models
         string dbFile = "URI=file:CD-Store-DB.db";
 
         public void CreateCategoryTable() {
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(@"CREATE TABLE IF NOT EXISTS category (categoryId INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand(@"CREATE TABLE IF NOT EXISTS category (categoryId INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,
                     registerDate DATE DEFAULT (datetime('now','localtime')), lastUpdate DATE, status INTEGER DEFAULT 1)", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
         public List<Category> ReadCategoryTable() {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand("SELECT * FROM category", connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-                List<Category> allCategories = new List<Category>();
-                while (reader.Read())
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
                 {
-                    Category category = new Category();
-                    category.categoryId = int.Parse(reader["categoryId"].ToString());
-                    category.name = reader["name"].ToString();
-                    category.registerDate = DateTime.Parse(reader["registerDate"].ToString());
-                    if (reader["lastUpdate"].ToString() != "")
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand("SELECT * FROM category", connection);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    List<Category> allCategories = new List<Category>();
+                    while (reader.Read())
                     {
-                        category.lastUpdate = DateTime.Parse(reader["lastUpdate"].ToString());
+                        Category category = new Category();
+                        category.categoryId = int.Parse(reader["categoryId"].ToString());
+                        category.name = reader["name"].ToString();
+                        category.registerDate = DateTime.Parse(reader["registerDate"].ToString());
+                        if (reader["lastUpdate"].ToString() != "")
+                        {
+                            category.lastUpdate = DateTime.Parse(reader["lastUpdate"].ToString());
+                        }
+                        category.status = int.Parse(reader["status"].ToString());
+                        allCategories.Add(category);
                     }
-                    category.status = int.Parse(reader["status"].ToString());
-                    allCategories.Add(category);
+                    connection.Close();
+                    return allCategories;
                 }
-                connection.Close();
-                return allCategories;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return null;
             }
         }
 
         public void InsertCategory(Category category) {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO category (name) VALUES ('{category.name}')", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand($@"INSERT INTO category (name) VALUES ('{category.name}')", connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
         public void UpdateCategory(Category category) {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"UPDATE category SET name = '{category.name}', lastUpdate = datetime('now','localtime'), status = 1
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand($@"UPDATE category SET name = '{category.name}', lastUpdate = datetime('now','localtime'), status = 1
                     WHERE categoryId = {category.categoryId}", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
         public void DeleteCategory(int categoryId) {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"UPDATE category SET status = 0 WHERE categoryId = {categoryId}", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand($@"UPDATE category SET status = 0 WHERE categoryId = {categoryId}", connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

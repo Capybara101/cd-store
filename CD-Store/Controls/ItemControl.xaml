@@ -20,7 +20,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Border x:Name="bordeItem" Width="125" Height="175" Background="#7a8aa7" CornerRadius="10" Padding="5" MouseLeftButtonDown="bordeItem_MouseLeftButtonDown">
+    <Border x:Name="bordeItem" Width="125" Height="175" Background="#7a8aa7" CornerRadius="10" Padding="5" MouseLeftButtonDown="bordeItem_MouseLeftButtonDown" Margin="5,0,5,0">
         <StackPanel Orientation="Vertical">
             <Border Width="115" Height="120" BorderThickness="1" BorderBrush="White" CornerRadius="10" Background="White" >
                 <Grid>
@@ -48,12 +48,12 @@
                         </Button>
                     </StackPanel>
                     <Border x:Name="borderCantidad" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1" Width="45" Visibility="Hidden">
-                        <TextBox Name="tbCantidad"  FontWeight="Bold" FontSize="15" Background="White" TextAlignment="Center" />
+                        <TextBox Text="{Binding Quantity}"  FontWeight="Bold" FontSize="15" Background="White" TextAlignment="Center" />
                     </Border>
-                    <TextBlock  Name="tbPrecio" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15" ></TextBlock>
+                    <TextBlock  Text="{Binding UnitPrice}" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15" ></TextBlock>
                 </Grid>
             </Border>
-            <TextBlock x:Name="tbNombre" FontSize="13" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            <TextBlock Text="{Binding ProductName}" FontSize="13" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>
         </StackPanel>
     </Border>
 </UserControl>
