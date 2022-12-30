@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SQLite;
 using CD_Store.Views;
+using CD_Store.Models;
 
 namespace CD_Store.Views
 {
@@ -23,11 +24,14 @@ namespace CD_Store.Views
     {
         ViewSales viewSales;
         ItemPage itemPage;
+        SQLiteClass sqliteClass = new SQLiteClass();
         public MainPage()
         {
             InitializeComponent();
             viewSales = new ViewSales();
             itemPage = new ItemPage();
+            sqliteClass.CheckSQLite();
+
         }
 
         private void SalesBttn_Click(object sender, RoutedEventArgs e)

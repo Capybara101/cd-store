@@ -47,9 +47,9 @@ namespace CD_Store.ViewModels
                 return new RelayCommand(() =>
                 {
                     var numQuery =
-            from item in items
-            where (item.IsSelected==true) 
-            select item;
+                    from item in items
+                    where (item.IsSelected==true) 
+                    select item;
 
                     // 3. Query execution.
                     foreach (var num in numQuery)
