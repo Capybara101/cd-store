@@ -15,6 +15,7 @@ namespace CD_Store.Models
         public DateTime registerDate { get; set; }
         public DateTime lastUpdate { get; set; }
         public int status { get; set; }
+        public List<SaleDetail> saleDetails { get; set; }
 
         public Sale() { }
 
@@ -29,12 +30,30 @@ namespace CD_Store.Models
             this.status = status;
         }
 
+        public Sale(int saleId, double total, DateTime registerDate, int status, List<SaleDetail> saleDetails)
+        {
+            this.saleId = saleId;
+            this.total = total;
+            this.registerDate = registerDate;
+            this.status = status;
+            this.saleDetails = saleDetails;
+        }
+
         public Sale(int saleId, double total, DateTime registerDate, DateTime lastUpdate, int status) {
             this.saleId = saleId;
             this.total = total;
             this.registerDate = registerDate;
             this.lastUpdate = lastUpdate;
             this.status = status;
+        }
+
+        public Sale(int saleId, double total, DateTime registerDate, DateTime lastUpdate, int status, List<SaleDetail> saleDetails)
+        {
+            this.saleId = saleId;
+            this.total = total;
+            this.registerDate = registerDate;
+            this.status = status;
+            this.saleDetails = saleDetails;
         }
 
         SQLiteClass sqliteClass = new SQLiteClass();
@@ -70,6 +89,34 @@ namespace CD_Store.Models
                         sale.lastUpdate = DateTime.Parse(reader["lastUpdate"].ToString());
                     }
                     sale.status = int.Parse(reader["status"].ToString());
+                    allSales.Add(sale);
+                }
+                connection.Close();
+                return allSales;
+            }
+        }
+
+        public List<Sale> ReadSaleAndSaleDetailTables(DateTime startDate, DateTime endDate)
+        {
+            sqliteClass.CheckSQLite();
+            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand($@"SELECT * FROM sale WHERE createDate BETWEEN '{startDate}' AND '{endDate}'", connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                List<Sale> allSales = new List<Sale>();
+                while (reader.Read())
+                {
+                    Sale sale = new Sale();
+                    sale.saleId = int.Parse(reader["saleId"].ToString());
+                    sale.total = double.Parse(reader["total"].ToString());
+                    sale.registerDate = DateTime.Parse(reader["registerDate"].ToString());
+                    if (reader["lastUpdate"].ToString() != "")
+                    {
+                        sale.lastUpdate = DateTime.Parse(reader["lastUpdate"].ToString());
+                    }
+                    sale.status = int.Parse(reader["status"].ToString());
+                    sale.saleDetails = new SaleDetail().GetSaleDetails(sale.saleId);
                     allSales.Add(sale);
                 }
                 connection.Close();

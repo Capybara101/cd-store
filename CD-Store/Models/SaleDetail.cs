@@ -90,6 +90,36 @@ namespace CD_Store.Models
             }
         }
 
+        public List<SaleDetail> GetSaleDetails(int saleId)
+        {
+            sqliteClass.CheckSQLite();
+            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand($@"SELECT * FROM saleDetail WHERE saleId = {saleId}", connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                List<SaleDetail> allSaleDetails = new List<SaleDetail>();
+                while (reader.Read())
+                {
+                    SaleDetail saleDetail = new SaleDetail();
+                    saleDetail.saleDetailId = int.Parse(reader["saleDetailId"].ToString());
+                    saleDetail.saleId = int.Parse(reader["saleId"].ToString());
+                    saleDetail.productId = int.Parse(reader["productId"].ToString());
+                    saleDetail.unitPrice = double.Parse(reader["unitPrice"].ToString());
+                    saleDetail.quantity = int.Parse(reader["quantity"].ToString());
+                    saleDetail.registerDate = DateTime.Parse(reader["registerDate"].ToString());
+                    if (reader["lastUpdate"].ToString() != "")
+                    {
+                        saleDetail.lastUpdate = DateTime.Parse(reader["lastUpdate"].ToString());
+                    }
+                    saleDetail.status = int.Parse(reader["status"].ToString());
+                    allSaleDetails.Add(saleDetail);
+                }
+                connection.Close();
+                return allSaleDetails;
+            }
+        }
+
         public void InsertSaleDetail(SaleDetail saleDetail) {
             sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))

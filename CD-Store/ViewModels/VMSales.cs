@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace CD_Store.ViewModels
 {
@@ -33,9 +34,10 @@ namespace CD_Store.ViewModels
         #region Constructors
         public VMSales()
         {
-            items.Add(new ItemControl(new Product { productId = 1, categoryId = 1, name = "Helado", unitPrice = 2.5 }));
-            items.Add(new ItemControl(new Product { productId = 1, categoryId = 2, name = "Pelicula", unitPrice = 2.5 }));
-            items.Add(new ItemControl(new Product { productId = 1, categoryId = 2, name = "Pelicula 5x10", unitPrice = 10 }));
+            foreach (Product prod in new Product().ReadProductTable())
+            {
+                items.Add(new ItemControl(new Product { productId = prod.productId, categoryId = prod.categoryId, name = prod.name, unitPrice = prod.unitPrice }));
+            }
         }
         #endregion
         private void SayHello()
