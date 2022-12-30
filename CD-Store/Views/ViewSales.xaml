@@ -40,12 +40,16 @@
             </Button.Style>
         </Button>
         <ListView Grid.Row="2" Background="Transparent" BorderThickness="0">
-            
+            <ListView.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                     Color="Transparent"/>
+            </ListView.Resources>
+
 
             <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" />
+                        <WrapPanel IsItemsHost="True"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
