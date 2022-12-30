@@ -14,6 +14,7 @@ namespace CD_Store.Models
         public DateTime registerDate { get; set; }
         public DateTime lastUpdate { get; set; }
         public int status { get; set; }
+        public int quantity { get; set; }
         public Product(int productId, int categoryId, string name, double unitPrice, DateTime registerDate, DateTime lastUpdate, int status)
         {
             this.productId = productId;
@@ -23,6 +24,11 @@ namespace CD_Store.Models
             this.registerDate = registerDate;
             this.lastUpdate = lastUpdate;
             this.status = status;
+            quantity = 0;
+        }
+        public Product()
+        {
+             
         }
     }
 }
