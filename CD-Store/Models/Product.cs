@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace CD_Store.Models
 {
@@ -49,75 +50,111 @@ namespace CD_Store.Models
         string dbFile = "URI=file:CD-Store-DB.db";
 
         public void CreateProductTable() {
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(@"CREATE TABLE IF NOT EXISTS product (productId INTEGER PRIMARY KEY AUTOINCREMENT, categoryId INTEGER,
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand(@"CREATE TABLE IF NOT EXISTS product (productId INTEGER PRIMARY KEY AUTOINCREMENT, categoryId INTEGER,
                     name TEXT, unitPrice REAL, registerDate DATE DEFAULT (datetime('now','localtime')), lastUpdate DATE, status INTEGER DEFAULT 1)", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
         public List<Product> ReadProductTable() {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand("SELECT * FROM product", connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-                List<Product> allProducts = new List<Product>();
-                while (reader.Read())
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
                 {
-                    Product product = new Product();
-                    product.productId = int.Parse(reader["productId"].ToString());
-                    product.categoryId = int.Parse(reader["categoryId"].ToString());
-                    product.name = reader["name"].ToString();
-                    product.unitPrice = double.Parse(reader["unitPrice"].ToString());
-                    product.registerDate = DateTime.Parse(reader["registerDate"].ToString());
-                    if (reader["lastUpdate"].ToString() != "")
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand("SELECT * FROM product", connection);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    List<Product> allProducts = new List<Product>();
+                    while (reader.Read())
                     {
-                        product.lastUpdate = DateTime.Parse(reader["lastUpdate"].ToString());
+                        Product product = new Product();
+                        product.productId = int.Parse(reader["productId"].ToString());
+                        product.categoryId = int.Parse(reader["categoryId"].ToString());
+                        product.name = reader["name"].ToString();
+                        product.unitPrice = double.Parse(reader["unitPrice"].ToString());
+                        product.registerDate = DateTime.Parse(reader["registerDate"].ToString());
+                        if (reader["lastUpdate"].ToString() != "")
+                        {
+                            product.lastUpdate = DateTime.Parse(reader["lastUpdate"].ToString());
+                        }
+                        product.status = int.Parse(reader["status"].ToString());
+                        allProducts.Add(product);
                     }
-                    product.status = int.Parse(reader["status"].ToString());
-                    allProducts.Add(product);
+                    connection.Close();
+                    return allProducts;
                 }
-                connection.Close();
-                return allProducts;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return null;
             }
         }
 
         public void InsertProduct(Product product) {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO product (categoryId, name, unitPrice) VALUES ({product.categoryId}, '{product.name}', {product.unitPrice})", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand($@"INSERT INTO product (categoryId, name, unitPrice) VALUES ({product.categoryId}, '{product.name}', {product.unitPrice})", connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
         public void UpdateProduct(Product product) {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"UPDATE product SET categoryId = {product.categoryId}, name = '{product.name}', unitPrice = {product.unitPrice},
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand($@"UPDATE product SET categoryId = {product.categoryId}, name = '{product.name}', unitPrice = {product.unitPrice},
                     lastUpdate = datetime('now','localtime') WHERE productId = {product.productId}", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
         public void DeleteProduct(int productId) {
-            sqliteClass.CheckSQLite();
-            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+            try
             {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"UPDATE product SET status = 0 WHERE productId = {productId}", connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                sqliteClass.CheckSQLite();
+                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                {
+                    connection.Open();
+                    SQLiteCommand command = new SQLiteCommand($@"UPDATE product SET status = 0 WHERE productId = {productId}", connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

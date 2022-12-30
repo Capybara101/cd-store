@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SQLite;
 using CD_Store.Views;
+using System.Runtime.InteropServices.ComTypes;
+using CD_Store.Models;
 
 namespace CD_Store.Views
 {
