@@ -12,17 +12,10 @@ namespace CD_Store.Models
     {
         public void CheckSQLite()
         {
-            Category category = new Category();
-            Product product = new Product();
-            Sale sale = new Sale();
-            SaleDetail saleDetail = new SaleDetail();
-            if (!File.Exists("CD-Store-DB.db"))
-            {
-                category.CreateCategoryTable();
-                product.CreateProductTable();
-                sale.CreateSaleTable();
-                saleDetail.CreateSaleDetailTable();
-            }
+            new Category().CreateCategoryTable();
+            new Product().CreateProductTable();
+            new Sale().CreateSaleTable();
+            new SaleDetail().CreateSaleDetailTable();
         }
     }
 }

@@ -14,19 +14,19 @@ namespace CD_Store.Models
         public DateTime lastUpdate { get; set; }
         public int status { get; set; }
 
-        public Category()
-        {
+        public Category() { }
 
+        public Category(string name)
+        {
+            this.name = name;
         }
 
-        public Category(int categoryId, string name)
-        {
+        public Category(int categoryId, string name) {
             this.categoryId = categoryId;
             this.name = name;
         }
 
-        public Category(int categoryId, string name, DateTime registerDate, DateTime lastUpdate, int status)
-        {
+        public Category(int categoryId, string name, DateTime registerDate, DateTime lastUpdate, int status) {
             this.categoryId = categoryId;
             this.name = name;
             this.registerDate = registerDate;
@@ -34,10 +34,10 @@ namespace CD_Store.Models
             this.status = status;
         }
 
+        SQLiteClass sqliteClass = new SQLiteClass();
         string dbFile = "URI=file:CD-Store-DB.db";
 
-        public void CreateCategoryTable()
-        {
+        public void CreateCategoryTable() {
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
@@ -48,8 +48,8 @@ namespace CD_Store.Models
             }
         }
 
-        public List<Category> ReadCategoryTable()
-        {
+        public List<Category> ReadCategoryTable() {
+            sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
@@ -74,19 +74,19 @@ namespace CD_Store.Models
             }
         }
 
-        public void InsertCategory(Category category)
-        {
+        public void InsertCategory(Category category) {
+            sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
-                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO category (name) VALUES ({category.name})", connection);
+                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO category (name) VALUES ('{category.name}')", connection);
                 command.ExecuteNonQuery();
                 connection.Close();
             }
         }
 
-        public void UpdateCategory(Category category)
-        {
+        public void UpdateCategory(Category category) {
+            sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
@@ -97,8 +97,8 @@ namespace CD_Store.Models
             }
         }
 
-        public void DeleteCategory(int categoryId)
-        {
+        public void DeleteCategory(int categoryId) {
+            sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();

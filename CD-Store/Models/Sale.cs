@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace CD_Store.Models
 {
@@ -36,10 +37,10 @@ namespace CD_Store.Models
             this.status = status;
         }
 
+        SQLiteClass sqliteClass = new SQLiteClass();
         string dbFile = "URI=file:CD-Store-DB.db";
 
-        public void CreateSaleTable()
-        {
+        public void CreateSaleTable() {
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
@@ -50,8 +51,8 @@ namespace CD_Store.Models
             }
         }
 
-        public List<Sale> ReadSaleTable()
-        {
+        public List<Sale> ReadSaleTable() {
+            sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
@@ -76,19 +77,30 @@ namespace CD_Store.Models
             }
         }
 
-        public void InsertSale(Sale sale)
-        {
+        public void InsertSale(Sale sale, List<SaleDetail> saleDetails) {
+            sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
+                int lastId = 0;
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand($@"INSERT INTO sale (total) VALUES ({sale.total})", connection);
                 command.ExecuteNonQuery();
+                SQLiteCommand command1 = new SQLiteCommand("SELECT seq FROM sqlite_sequence WHERE name = 'sale'", connection);
+                SQLiteDataReader reader = command1.ExecuteReader();
+                while (reader.Read())
+                {
+                    lastId = int.Parse(reader["seq"].ToString());
+                }
+                foreach(SaleDetail saleDetail in saleDetails){
+                    saleDetail.saleId = lastId;
+                    new SaleDetail().InsertSaleDetail(saleDetail);
+                }
                 connection.Close();
             }
         }
 
-        public void UpdateSale(int saleId)
-        {
+        public void UpdateSale(int saleId) {
+            sqliteClass.CheckSQLite();
             using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
                 connection.Open();
