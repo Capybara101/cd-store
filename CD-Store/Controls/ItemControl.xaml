@@ -48,12 +48,12 @@
                         </Button>
                     </StackPanel>
                     <Border x:Name="borderCantidad" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1" Width="45" Visibility="Hidden">
-                        <TextBox Name="tbCantidad"  FontWeight="Bold" FontSize="15" Background="White" TextAlignment="Center" />
+                        <TextBox Text="{Binding Quantity}"  FontWeight="Bold" FontSize="15" Background="White" TextAlignment="Center" />
                     </Border>
-                    <TextBlock  Name="tbPrecio" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15" ></TextBlock>
+                    <TextBlock  Text="{Binding UnitPrice}" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15" ></TextBlock>
                 </Grid>
             </Border>
-            <TextBlock x:Name="tbNombre" FontSize="13" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            <TextBlock Text="{Binding ProductName}" FontSize="13" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>
         </StackPanel>
     </Border>
 </UserControl>
