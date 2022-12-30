@@ -5,13 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CD_Store.Views"
              mc:Ignorable="d">
-
-    <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,0.2,2" ItemsSource="{Binding Items}">
-        <ListView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <WrapPanel/>
-            </ItemsPanelTemplate>
-        </ListView.ItemsPanel>
+    <ListView>
+        <Button Content="Say Hellow" Command="{Binding SellCommand}"></Button>
+        
+        <ItemsControl ItemsSource="{Binding Items}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </ListView>
 
 </UserControl>
