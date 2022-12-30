@@ -100,7 +100,6 @@ namespace CD_Store.ViewModels
                             {
                                 Directory.CreateDirectory(ruta);
                             }
-                            MessageBox.Show(Directory.GetCurrentDirectory());
                             System.IO.File.Copy(fileName,ruta+"/"+id+".jpg" );
                             MessageBox.Show("Creado Correctamente");
                         }
