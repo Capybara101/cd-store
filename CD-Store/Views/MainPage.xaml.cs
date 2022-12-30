@@ -23,11 +23,13 @@ namespace CD_Store.Views
     {
         ViewSales viewSales;
         ItemPage itemPage;
+        ReportsSales reportsSales;
         public MainPage()
         {
             InitializeComponent();
             viewSales = new ViewSales();
             itemPage = new ItemPage();
+            reportsSales = new ReportsSales();
         }
 
         private void SalesBttn_Click(object sender, RoutedEventArgs e)
@@ -40,6 +42,12 @@ namespace CD_Store.Views
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(itemPage);
+        }
+
+        private void ReportsSales_Click(object sender, RoutedEventArgs e)
+        {
+            MainContainer.Children.Clear();
+            MainContainer.Children.Add(reportsSales);
         }
     }
 }

@@ -65,7 +65,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Reportes" Width="140" Margin="0,15,0,0" Height="40" Foreground="White">
+            <Button x:Name="ReportsSales" Content="Reportes" Width="140" Margin="0,15,0,0" Height="40" Foreground="White" Click="ReportsSales_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Resources>
