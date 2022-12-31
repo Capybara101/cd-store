@@ -103,21 +103,22 @@ namespace CD_Store.Models
             }
         }
 
-        public void InsertProduct(Product product) {
-            try
+        public int InsertProduct() {
+            sqliteClass.CheckSQLite();
+            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
-                sqliteClass.CheckSQLite();
-                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO product (categoryId, name, unitPrice) VALUES ({categoryId}, '{name}', '{unitPrice}')", connection);
+                command.ExecuteNonQuery();
+                int lastId=0;
+                SQLiteCommand command1 = new SQLiteCommand("SELECT seq FROM sqlite_sequence WHERE name = 'product'", connection);
+                SQLiteDataReader reader = command1.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    SQLiteCommand command = new SQLiteCommand($@"INSERT INTO product (categoryId, name, unitPrice) VALUES ({product.categoryId}, '{product.name}', {product.unitPrice})", connection);
-                    command.ExecuteNonQuery();
-                    connection.Close();
+                    lastId = int.Parse(reader["seq"].ToString());
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
+                connection.Close();
+                return lastId;
             }
         }
 

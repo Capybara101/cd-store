@@ -25,13 +25,15 @@ namespace CD_Store.Views
     {
         ViewSales viewSales;
         ItemPage itemPage;
-        ReportsSales reportsSales;
+        ReportsSales reportsSales = new ReportsSales();
+        SQLiteClass sqliteClass = new SQLiteClass();
         public MainPage()
         {
             InitializeComponent();
             viewSales = new ViewSales();
             itemPage = new ItemPage();
-            reportsSales = new ReportsSales();
+            sqliteClass.CheckSQLite();
+
         }
 
         private void SalesBttn_Click(object sender, RoutedEventArgs e)

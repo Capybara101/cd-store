@@ -81,6 +81,7 @@
     <Compile Include="Models\SaleDetail.cs" />
     <Compile Include="Models\SQLiteClass.cs" />
     <Compile Include="ViewModels\VMBase.cs" />
+    <Compile Include="ViewModels\VMItemPage.cs" />
     <Compile Include="ViewModels\VMSales.cs" />
     <Compile Include="Views\ItemPage.xaml.cs">
       <DependentUpon>ItemPage.xaml</DependentUpon>
