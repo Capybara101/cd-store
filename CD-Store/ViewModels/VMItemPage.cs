@@ -93,7 +93,7 @@ namespace CD_Store.ViewModels
                         product.unitPrice = ProductUnitPrice;
                         int id = product.InsertProduct();
                         
-                        if ( id> 0)
+                        /*if ( id> 0)
                         {
                             string ruta = Directory.GetCurrentDirectory()+ @"\imagenes";
                             if (!Directory.Exists(ruta))
@@ -102,7 +102,7 @@ namespace CD_Store.ViewModels
                             }
                             System.IO.File.Copy(fileName,ruta+"/"+id+".jpg" );
                             MessageBox.Show("Creado Correctamente");
-                        }
+                        }*/
                     }
                     catch (System.Exception e)
                     {

@@ -33,25 +33,24 @@ namespace CD_Store.Views
             viewSales = new ViewSales();
             itemPage = new ItemPage();
             sqliteClass.CheckSQLite();
-
         }
 
         private void SalesBttn_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
-            MainContainer.Children.Add(viewSales);
+            MainContainer.Children.Add(new ViewSales());
         }
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
-            MainContainer.Children.Add(itemPage);
+            MainContainer.Children.Add(new ItemPage());
         }
 
         private void ReportsSales_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
-            MainContainer.Children.Add(reportsSales);
+            MainContainer.Children.Add(new ReportsSales());
         }
     }
 }
