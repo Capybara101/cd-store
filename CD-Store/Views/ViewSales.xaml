@@ -39,9 +39,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ListView Grid.Row="2" Background="Transparent" BorderThickness="0">
-            
-
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
             <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -49,7 +47,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-        </ListView>
+        </ScrollViewer>
     </Grid>
     
 
