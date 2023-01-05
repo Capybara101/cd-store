@@ -103,21 +103,38 @@ namespace CD_Store.Models
             }
         }
 
-        public void InsertProduct(Product product) {
-            try
+        public string GetName(int id)
+        {
+            sqliteClass.CheckSQLite();
+            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
-                sqliteClass.CheckSQLite();
-                using (SQLiteConnection connection = new SQLiteConnection(dbFile))
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand("SELECT name FROM product WHERE productId = "+id, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    SQLiteCommand command = new SQLiteCommand($@"INSERT INTO product (categoryId, name, unitPrice) VALUES ({product.categoryId}, '{product.name}', {product.unitPrice})", connection);
-                    command.ExecuteNonQuery();
-                    connection.Close();
+                    return reader.GetString(0);
                 }
             }
-            catch (Exception ex)
+            return "";
+        }
+
+        public int InsertProduct() {
+            sqliteClass.CheckSQLite();
+            using (SQLiteConnection connection = new SQLiteConnection(dbFile))
             {
-                MessageBox.Show("Error: " + ex.Message);
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand($@"INSERT INTO product (categoryId, name, unitPrice) VALUES ({categoryId}, '{name}', '{unitPrice}')", connection);
+                int a = command.ExecuteNonQuery();
+                int lastId=0;
+                SQLiteCommand command1 = new SQLiteCommand("SELECT seq FROM sqlite_sequence WHERE name = 'product'", connection);
+                SQLiteDataReader reader = command1.ExecuteReader();
+                while (reader.Read())
+                {
+                    lastId = int.Parse(reader["seq"].ToString());
+                }
+                connection.Close();
+                return lastId;
             }
         }
 

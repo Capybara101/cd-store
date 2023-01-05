@@ -39,13 +39,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ListView Grid.Row="2" Background="Transparent" BorderThickness="0">
-            <ListView.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
-                     Color="Transparent"/>
-            </ListView.Resources>
-
-
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2">
             <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -53,8 +47,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-        </ListView>
+        </ScrollViewer>
     </Grid>
-    
-
 </UserControl>
