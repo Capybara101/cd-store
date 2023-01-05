@@ -27,7 +27,7 @@ namespace CD_Store.Controls
         private double unitPrice;
         private int quantity;
         private string productName;
-
+        private string productPath;
 
         public bool IsSelected
         {
@@ -42,7 +42,7 @@ namespace CD_Store.Controls
 
         public int Quantity
         {
-            get { return quantity; }
+            get { return (int.TryParse(productQuantity.Text, out int num)) ? quantity : 0; }
             set { quantity = value; OnPropertyChanged("Quantity"); }
         }
 
@@ -59,6 +59,12 @@ namespace CD_Store.Controls
             set { productId = value; }
         }
 
+        public string ProductPath
+        {
+            get { return productPath; }
+            set { productPath = value; }
+        }
+
 
         #endregion
 
@@ -70,6 +76,7 @@ namespace CD_Store.Controls
             Quantity = product.quantity;
             ProductID = product.productId;
             ProductName = product.name;
+            ProductPath = product.productPath;
             isSelected = false;
             DataContext = this;
 
@@ -124,6 +131,11 @@ namespace CD_Store.Controls
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
+            if(quantity <= 0)
+            {
+                quantity = 0;
+                productQuantity.Text = "0";
             }
         }
         #endregion

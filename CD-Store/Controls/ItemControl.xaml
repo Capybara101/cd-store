@@ -24,7 +24,7 @@
         <StackPanel Orientation="Vertical">
             <Border Width="115" Height="120" BorderThickness="1" BorderBrush="White" CornerRadius="10" Background="White" >
                 <Grid>
-                    <Image Name="imgImage" Stretch="Fill" Margin="2" Source="{Binding Path}" />
+                    <Image Name="imgImage" Stretch="Fill" Margin="2" Source="{Binding ProductPath}" />
                     <StackPanel Name="stackOcultar"  Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" >
                         <Button Name="btnAumentarCantidad" Width="50" Height="55" Margin="0 0 0 1" Background="#ffe089" Click="btnAumentarCantidad_Click"  BorderBrush="{x:Null}">
                             <fa:ImageAwesome Icon="ArrowUp"  Width="45"  Height="30" Stretch="Fill" >
@@ -48,9 +48,15 @@
                         </Button>
                     </StackPanel>
                     <Border x:Name="borderCantidad" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1" Width="45" Visibility="Hidden">
-                        <TextBox Text="{Binding Quantity}"  FontWeight="Bold" FontSize="15" Background="White" TextAlignment="Center" />
+                        <TextBox x:Name="productQuantity" Text="{Binding Quantity}" FontWeight="Bold" FontSize="15" Background="White" TextAlignment="Center" />
                     </Border>
-                    <TextBlock  Text="{Binding UnitPrice}" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15" ></TextBlock>
+                    <TextBlock FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="80" TextAlignment="Center" FontSize="15" >
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat=" {0} bs.">
+                                <Binding Path="UnitPrice"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </Grid>
             </Border>
             <TextBlock Text="{Binding ProductName}" FontSize="13" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>

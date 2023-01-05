@@ -68,7 +68,7 @@ namespace CD_Store.Models
             }
         }
 
-        public List<SaleDetail> ReadSaleDetailTable()
+        public List<SaleDetail> ReadSaleDetailTable(string startingDate, string endingDate)
         {
             try
             {
@@ -76,7 +76,9 @@ namespace CD_Store.Models
                 using (SQLiteConnection connection = new SQLiteConnection(dbFile))
                 {
                     connection.Open();
-                    SQLiteCommand command = new SQLiteCommand("SELECT * FROM saleDetail", connection);
+                    if (startingDate == "" || startingDate == null) startingDate = "01/01/0001";
+                    if (endingDate == "" || endingDate == null) endingDate = "31/12/3000";
+                    SQLiteCommand command = new SQLiteCommand($"SELECT * FROM saleDetail WHERE strftime('%d/%m/%Y', registerDate) BETWEEN '{startingDate}' AND '{endingDate}'", connection);
                     SQLiteDataReader reader = command.ExecuteReader();
                     List<SaleDetail> allSaleDetails = new List<SaleDetail>();
                     while (reader.Read())

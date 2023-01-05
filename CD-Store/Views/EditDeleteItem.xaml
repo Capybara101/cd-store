@@ -18,8 +18,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="EDITAR ÍTEM" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Century Gothic" />
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="ELIMINAR ÍTEM" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Century Gothic"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="EDITAR PRODUCTO" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Century Gothic" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="ELIMINAR PRODUCTO" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Century Gothic"/>
 
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>

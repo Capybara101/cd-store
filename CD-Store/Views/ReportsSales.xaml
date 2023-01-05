@@ -24,9 +24,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="REPORTE VENTAS" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25" FontFamily="Century Gothic"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="REPORTE DE VENTAS" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25" FontFamily="Century Gothic"/>
 
-        <Button IsEnabled="False" Name="FilterResult" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalContentAlignment="Center" Height="35" Margin="10,0,10,0" Content="FILTRAR" FontFamily="Century Gothic" FontSize="20" Foreground="White">
+        <Button Command="{Binding FilterSales}" Name="FilterResult" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalContentAlignment="Center" Height="35" Margin="10,0,10,0" Content="FILTRAR" FontFamily="Century Gothic" FontSize="20" Foreground="White">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Style.Resources>
@@ -82,7 +82,44 @@
         </Grid>
 
         <Grid Name="SalesList" Grid.Row="3" Grid.ColumnSpan="4">
-            <DataGrid ItemsSource="{Binding Datalist}" ColumnWidth="*">
+            <DataGrid ItemsSource="{Binding Datalist}" AutoGenerateColumns="False" ColumnWidth="*" IsReadOnly="True" FontFamily="Century Gothic" FontSize="15">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre de Producto" Binding="{Binding Nombre}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Precio Unitario (Bs.)" Binding="{Binding Precio_Unitario}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Total (Bs.)" Binding="{Binding Total}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha y Hora de Venta" Binding="{Binding Fecha_Registro, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}">
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
             </DataGrid>
         </Grid>
     </Grid>
