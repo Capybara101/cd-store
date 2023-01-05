@@ -37,30 +37,35 @@ namespace CD_Store.Views
             reportsSales = new ReportsSales();
             editDeleteItem = new EditDeleteItem();
             sqliteClass.CheckSQLite();
+            Title = "CD STORE";
         }
 
         private void SalesBttn_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(new ViewSales());
+            Title = "Realizar Venta";
         }
 
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(new ItemPage());
+            Title = "Agregar Producto";
         }
 
         private void ReportsSales_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(new ReportsSales());
+            Title = "Reporte de Ventas";
         }
 
         private void UpdateDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(editDeleteItem);
+            Title = "Editar y Eliminar Producto";
         }
     }
 }

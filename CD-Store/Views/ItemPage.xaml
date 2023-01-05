@@ -29,7 +29,7 @@
 
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" FontSize="25" FontFamily="Century Gothic" VerticalAlignment="Center"><Run Text="AGREGAR "/><Run Text="PRODUCTO"/></TextBlock>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Grid.Column="0" FontSize="25" FontFamily="Century Gothic" VerticalAlignment="Center"><Run Text="AGREGAR "/><Run Text="PRODUCTO"/></TextBlock>
 
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Nombre: " FontFamily="Century Gothic" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Imagen: " FontFamily="Century Gothic" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center"/>
