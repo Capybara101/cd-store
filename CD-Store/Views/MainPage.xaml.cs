@@ -24,12 +24,14 @@ namespace CD_Store.Views
         ViewSales viewSales;
         ItemPage itemPage;
         ReportsSales reportsSales;
+        EditDeleteItem editDeleteItem;
         public MainPage()
         {
             InitializeComponent();
             viewSales = new ViewSales();
             itemPage = new ItemPage();
             reportsSales = new ReportsSales();
+            editDeleteItem = new EditDeleteItem();
         }
 
         private void SalesBttn_Click(object sender, RoutedEventArgs e)
@@ -48,6 +50,12 @@ namespace CD_Store.Views
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(reportsSales);
+        }
+
+        private void UpdateDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            MainContainer.Children.Clear();
+            MainContainer.Children.Add(editDeleteItem);
         }
     }
 }
