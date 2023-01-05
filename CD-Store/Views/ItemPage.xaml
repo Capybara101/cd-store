@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CD_Store.Views"
              xmlns:vm="clr-namespace:CD_Store.ViewModels"
-             mc:Ignorable="d" Height="561.6" Width="798.8">
+             mc:Ignorable="d" Height="561.6" Width="798.8"
+             d:DesignHeight="700" d:DesignWidth="1300">
     <UserControl.DataContext>
         <vm:VMItemPage/>
     </UserControl.DataContext>
@@ -48,7 +49,7 @@
                             <Setter Property="CornerRadius" Value="3"/>
                         </Style>
                     </Style.Resources>
-                    <Setter Property="Background" Value="#81C6E8"/>
+                    <Setter Property="Background" Value="#323232"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
@@ -60,7 +61,7 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#79DAE8"/>
+                            <Setter Property="Background" Value="#000000"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -77,7 +78,7 @@
                             <Setter Property="CornerRadius" Value="3"/>
                         </Style>
                     </Style.Resources>
-                    <Setter Property="Background" Value="#81C6E8"/>
+                    <Setter Property="Background" Value="#323232"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
@@ -89,14 +90,13 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#79DAE8"/>
+                            <Setter Property="Background" Value="#000000"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
         <TextBox Text="{Binding ProductUnitPrice}" Grid.Row="6" Grid.ColumnSpan="2" Grid.Column="2" Height="30"  Width="250" VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontFamily="Century Gothic"/>
-
         <Button Command="{Binding AddNewProduct}" Grid.ColumnSpan="2" Grid.Column="2" Foreground="White" Grid.Row="7" FontFamily="Century Gothic" FontSize="20" Height="35" Content="AGREGAR" VerticalAlignment="Center" HorizontalAlignment="Left" Width="300">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -105,7 +105,7 @@
                             <Setter Property="CornerRadius" Value="3"/>
                         </Style>
                     </Style.Resources>
-                    <Setter Property="Background" Value="#205295"/>
+                    <Setter Property="Background" Value="#3F4E4F"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
@@ -117,7 +117,7 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#144272"/>
+                            <Setter Property="Background" Value="#2C3639"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>

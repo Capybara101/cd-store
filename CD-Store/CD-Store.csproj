@@ -105,6 +105,9 @@
     <Compile Include="ViewModels\VMItemPage.cs" />
     <Compile Include="ViewModels\VMReports.cs" />
     <Compile Include="ViewModels\VMSales.cs" />
+    <Compile Include="Views\EditDeleteItem.xaml.cs">
+      <DependentUpon>EditDeleteItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ItemPage.xaml.cs">
       <DependentUpon>ItemPage.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
     <Page Include="Controls\ItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditDeleteItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemPage.xaml">
       <SubType>Designer</SubType>
