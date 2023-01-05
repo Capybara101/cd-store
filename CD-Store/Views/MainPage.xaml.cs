@@ -25,13 +25,17 @@ namespace CD_Store.Views
     {
         ViewSales viewSales;
         ItemPage itemPage;
-        ReportsSales reportsSales = new ReportsSales();
+        ReportsSales reportsSales;
+        EditDeleteItem editDeleteItem;
         SQLiteClass sqliteClass = new SQLiteClass();
+
         public MainPage()
         {
             InitializeComponent();
             viewSales = new ViewSales();
             itemPage = new ItemPage();
+            reportsSales = new ReportsSales();
+            editDeleteItem = new EditDeleteItem();
             sqliteClass.CheckSQLite();
         }
 
@@ -51,6 +55,12 @@ namespace CD_Store.Views
         {
             MainContainer.Children.Clear();
             MainContainer.Children.Add(new ReportsSales());
+        }
+
+        private void UpdateDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            MainContainer.Children.Clear();
+            MainContainer.Children.Add(editDeleteItem);
         }
     }
 }
