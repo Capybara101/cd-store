@@ -24,7 +24,7 @@
         <StackPanel Orientation="Vertical">
             <Border Width="115" Height="120" BorderThickness="1" BorderBrush="White" CornerRadius="10" Background="White" >
                 <Grid>
-                    <Image Name="imgImage" Stretch="Fill" Margin="2" Source="/Image/product.jpg" />
+                    <Image Name="imgImage" Stretch="Fill" Margin="2" Source="{Binding Path}" />
                     <StackPanel Name="stackOcultar"  Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" >
                         <Button Name="btnAumentarCantidad" Width="50" Height="55" Margin="0 0 0 1" Background="#ffe089" Click="btnAumentarCantidad_Click"  BorderBrush="{x:Null}">
                             <fa:ImageAwesome Icon="ArrowUp"  Width="45"  Height="30" Stretch="Fill" >

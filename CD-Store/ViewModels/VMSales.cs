@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Windows;
@@ -39,7 +40,12 @@ namespace CD_Store.ViewModels
         {
             foreach (Product prod in new Product().ReadProductTable())
             {
-                items.Add(new ItemControl(new Product { productId = prod.productId, categoryId = prod.categoryId, name = prod.name, unitPrice = prod.unitPrice }));
+                string prodPath = Directory.GetCurrentDirectory() + $@"\imagenes\{prod.productId}.jpg";
+                if (!Directory.Exists(prodPath))
+                {
+                    prodPath = "/Image/product.jpg";
+                }
+                items.Add(new ItemControl(new Product { productId = prod.productId, categoryId = prod.categoryId, name = prod.name, unitPrice = prod.unitPrice, path = prodPath }));
             }
         }
         #endregion

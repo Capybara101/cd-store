@@ -92,23 +92,21 @@ namespace CD_Store.ViewModels
                         product.categoryId = categoryIDSelected;
                         product.unitPrice = ProductUnitPrice;
                         int id = product.InsertProduct();
-                        
-                        /*if ( id> 0)
+                        if (id > 0)
                         {
-                            string ruta = Directory.GetCurrentDirectory()+ @"\imagenes";
-                            if (!Directory.Exists(ruta))
+                            string path = Directory.GetCurrentDirectory() + @"\imagenes";
+                            if (!Directory.Exists(path))
                             {
-                                Directory.CreateDirectory(ruta);
+                                Directory.CreateDirectory(path);
                             }
-                            System.IO.File.Copy(fileName,ruta+"/"+id+".jpg" );
+                            System.IO.File.Copy(fileName, path + @"\" + id + ".jpg");
                             MessageBox.Show("Creado Correctamente");
-                        }*/
+                        }
                     }
                     catch (System.Exception e)
                     {
                         MessageBox.Show(e.Message);
                     }
-                    
                 });
             }
         }

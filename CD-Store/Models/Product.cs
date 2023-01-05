@@ -17,6 +17,7 @@ namespace CD_Store.Models
         public DateTime lastUpdate { get; set; }
         public int status { get; set; }
         public int quantity { get; set; }
+        public string path { get; set; }
 
         public Product() { }
 
