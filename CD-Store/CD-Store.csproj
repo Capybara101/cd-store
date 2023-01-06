@@ -105,6 +105,7 @@
     <Compile Include="Models\SaleDetail.cs" />
     <Compile Include="Models\SQLiteClass.cs" />
     <Compile Include="ViewModels\VMBase.cs" />
+    <Compile Include="ViewModels\VMEditProduct.cs" />
     <Compile Include="ViewModels\VMItemEditDeletePage.cs" />
     <Compile Include="ViewModels\VMItemPage.cs" />
     <Compile Include="ViewModels\VMReports.cs" />

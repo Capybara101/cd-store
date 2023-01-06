@@ -139,21 +139,24 @@ namespace CD_Store.Models
             }
         }
 
-        public void UpdateProduct(Product product) {
+        public int UpdateProduct() {
             try
             {
                 sqliteClass.CheckSQLite();
                 using (SQLiteConnection connection = new SQLiteConnection(dbFile))
                 {
                     connection.Open();
-                    SQLiteCommand command = new SQLiteCommand($@"UPDATE product SET categoryId = {product.categoryId}, name = '{product.name}', unitPrice = {product.unitPrice},
-                    lastUpdate = datetime('now','localtime') WHERE productId = {product.productId}", connection);
-                    command.ExecuteNonQuery();
+                    SQLiteCommand command = new SQLiteCommand($@"UPDATE product SET categoryId = {categoryId}, name = '{name}', unitPrice = '{unitPrice}',
+                    lastUpdate = datetime('now','localtime') WHERE productId = {productId}", connection);
+                    int res=command.ExecuteNonQuery();
                     connection.Close();
+                    return res;
                 }
+              
             }
             catch (Exception ex)
             {
+                return 0;
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
