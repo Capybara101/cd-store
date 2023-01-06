@@ -24,6 +24,5 @@ namespace CD_Store.Views
         {
             InitializeComponent();
         }
-
     }
 }
