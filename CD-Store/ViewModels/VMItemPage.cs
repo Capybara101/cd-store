@@ -22,17 +22,26 @@ namespace CD_Store.ViewModels
         private ObservableCollection<Category> categoryList;
         private int categoryIDSelected;
         private BitmapImage imagen;
+        private string categoryVisivility = "Hidden";
+
+
+
 
 
         public BitmapImage Imagen
         {
             get { return imagen; }
-            set { imagen = value;OnPropertyChanged("Imagen"); }
+            set { imagen = value; OnPropertyChanged("Imagen"); }
+        }
+        public string CategoryVisivility
+        {
+            get { return categoryVisivility; }
+            set { categoryVisivility = value; OnPropertyChanged("CategoryVisivility"); }
         }
         public int CategoryIDSelected
         {
             get { return categoryIDSelected; }
-            set { categoryIDSelected = value;OnPropertyChanged("CategoryIDSelected"); }
+            set { categoryIDSelected = value; OnPropertyChanged("CategoryIDSelected"); }
         }
         public ObservableCollection<Category> CategoryList
         {
@@ -42,7 +51,7 @@ namespace CD_Store.ViewModels
         public double ProductUnitPrice
         {
             get { return productUnitPrice; }
-            set { productUnitPrice = value; }
+            set { productUnitPrice = value; OnPropertyChanged("ProductUnitPrice"); }
         }
 
         public string NewProductCategory
@@ -76,7 +85,21 @@ namespace CD_Store.ViewModels
                     category.InsertCategory();
                     NewProductCategory = "";
                     MessageBox.Show("Categoría agregada con éxito");
+                    CategoryVisivility = "Hidden";
                     GetCategories();
+                });
+            }
+        }
+        public ICommand CategoryVisivilityCommand
+        {
+            get
+            {
+                return new RelayCommand(()=>
+                {
+                    if (CategoryVisivility == "Visible") CategoryVisivility = "Hidden";
+                    else CategoryVisivility = "Visible";
+
+
                 });
             }
         }
@@ -88,20 +111,33 @@ namespace CD_Store.ViewModels
                 {
                     try
                     {
-                        product.name = ProductName.Trim().ToUpper();
-                        product.categoryId = categoryIDSelected;
-                        product.unitPrice = ProductUnitPrice;
-                        int id = product.InsertProduct();
-                        if (id > 0)
+                        
+                        if(ProductName!=string.Empty && categoryIDSelected!=0 && productUnitPrice > 0 && fileName!=null && fileName!=string.Empty )
                         {
-                            string path = Directory.GetCurrentDirectory() + @"\imagenes";
-                            if (!Directory.Exists(path))
+                            product.name = ProductName.Trim().ToUpper();
+                            product.categoryId = categoryIDSelected;
+                            product.unitPrice = ProductUnitPrice;
+                            int id = product.InsertProduct();
+                            if (id > 0)
                             {
-                                Directory.CreateDirectory(path);
+                          
+                                string path = Directory.GetCurrentDirectory() + @"\imagenes";
+                                if (!Directory.Exists(path))
+                                {
+                                    Directory.CreateDirectory(path);
+                                }
+                                System.IO.File.Copy(fileName, path + @"\" + id + ".jpg");
+                                MessageBox.Show("Creado Correctamente");
+                                ProductName = "";
+                                ProductUnitPrice = 0;
+                                Imagen = null;
                             }
-                            System.IO.File.Copy(fileName, path + @"\" + id + ".jpg");
-                            MessageBox.Show("Creado Correctamente");
                         }
+                        else
+                        {
+                            MessageBox.Show("Debe Llenar Todos Los Campos de Texto Y Selecionar Una Imagen");
+                        }
+                        
                     }
                     catch (System.Exception e)
                     {

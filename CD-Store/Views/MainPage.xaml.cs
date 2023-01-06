@@ -64,7 +64,7 @@ namespace CD_Store.Views
         private void UpdateDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
-            MainContainer.Children.Add(editDeleteItem);
+            MainContainer.Children.Add(new EditDeleteItem());
             Title = "Editar y Eliminar Producto";
         }
     }
