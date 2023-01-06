@@ -59,7 +59,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Image Source="{Binding Imagen}" Grid.Row="1" Grid.Column="4" Grid.RowSpan="5" Margin="10"/>
+            <Image x:Name="imageWPF" Source="{Binding Imagen}" Grid.Row="1" Grid.Column="4" Grid.RowSpan="5" Margin="10"/>
             <ComboBox ItemsSource="{Binding CategoryList}" SelectedValue="{Binding CategoryIDSelected}" DisplayMemberPath="name" SelectedValuePath="categoryId" Grid.Row="3" Grid.ColumnSpan="2" FontSize="15" Grid.Column="2" Height="30"  Width="250" VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontFamily="Century Gothic"/>
             <TextBox Text="{Binding ProductUnitPrice}" Grid.Row="4" Grid.ColumnSpan="2" FontSize="15" Grid.Column="2" Height="30"  Width="250" VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontFamily="Century Gothic"/>
 

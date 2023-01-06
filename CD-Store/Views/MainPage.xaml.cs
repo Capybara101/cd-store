@@ -23,19 +23,11 @@ namespace CD_Store.Views
     /// </summary>
     public partial class MainPage : Window
     {
-        ViewSales viewSales;
-        ItemPage itemPage;
-        ReportsSales reportsSales;
-        EditDeleteItem editDeleteItem;
         SQLiteClass sqliteClass = new SQLiteClass();
 
         public MainPage()
         {
             InitializeComponent();
-            viewSales = new ViewSales();
-            itemPage = new ItemPage();
-            reportsSales = new ReportsSales();
-            editDeleteItem = new EditDeleteItem();
             sqliteClass.CheckSQLite();
             Title = "CD STORE";
 

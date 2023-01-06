@@ -43,7 +43,7 @@ namespace CD_Store.ViewModels
                 string prodPath = $@"{Directory.GetCurrentDirectory()}\imagenes\{prod.productId}.jpg";
                 if (!File.Exists(prodPath))
                 {
-                    prodPath = "/Image/product.jpg";
+                    prodPath = $@"{Directory.GetCurrentDirectory()}\imagenes\product.jpg";
                 }
                 items.Add(new ItemControl(new Product { productId = prod.productId, categoryId = prod.categoryId, name = prod.name, unitPrice = prod.unitPrice, productPath = prodPath }));
             }
