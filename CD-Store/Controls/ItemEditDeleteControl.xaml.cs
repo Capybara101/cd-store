@@ -28,6 +28,13 @@ namespace CD_Store.Controls
         private string productName;
         private BitmapImage productPath;
         private string productPathString;
+        private int categoryId;
+
+        public int CategoryId
+        {
+            get { return categoryId; }
+            set { categoryId = value; }
+        }
 
         public bool IsSelected
         {
@@ -71,6 +78,7 @@ namespace CD_Store.Controls
             UnitPrice = product.unitPrice;
             ProductID = product.productId;
             ProductName = product.name;
+            CategoryId = product.categoryId;
 
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
@@ -88,7 +96,7 @@ namespace CD_Store.Controls
 
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
-            EditItemWindow editItemWindow = new EditItemWindow(ProductID, ProductName, UnitPrice, ProductPathString);
+            EditItemWindow editItemWindow = new EditItemWindow(ProductID, CategoryId, ProductName, UnitPrice, ProductPathString);
             editItemWindow.ShowDialog();
         }
 

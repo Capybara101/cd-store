@@ -78,7 +78,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Margin="5" HorizontalAlignment="Right"  Grid.Column="0" Text="Categoria:" VerticalAlignment="Center" FontSize="14" FontFamily="Century Gothic"/>
-            <ComboBox Name="Category" Grid.Column="1" VerticalAlignment="Center" Height="30" FontFamily="Century Gothic"  FontSize="15" Text="12/05/2015" VerticalContentAlignment="Center" />
+            <ComboBox ItemsSource="{Binding CategoryList}" SelectedValue="{Binding CategoryIDSelected}" DisplayMemberPath="name" SelectedValuePath="categoryId" Name="Category" Grid.Column="1" VerticalAlignment="Center" Height="30" FontFamily="Century Gothic"  FontSize="15" Text="12/05/2015" VerticalContentAlignment="Center" />
         </Grid>
 
         <Grid Name="SalesList" Grid.Row="3" Grid.ColumnSpan="4">

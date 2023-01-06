@@ -61,6 +61,7 @@ namespace CD_Store.ViewModels
             GetCategories();
             ProductName = product.name;
             ProductUnitPrice = product.unitPrice;
+            CategoryIDSelected = product.categoryId;
 
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
@@ -91,12 +92,15 @@ namespace CD_Store.ViewModels
                             int res = productU.UpdateProduct();
                             if (res > 0)
                             {
-                                string path = Directory.GetCurrentDirectory() + @"\imagenes";
-                                if (!Directory.Exists(path))
+                                if(fileName != null)
                                 {
-                                    Directory.CreateDirectory(path);
+                                    string path = Directory.GetCurrentDirectory() + @"\imagenes";
+                                    if (!Directory.Exists(path))
+                                    {
+                                        Directory.CreateDirectory(path);
+                                    }
+                                    System.IO.File.Copy(fileName, path + @"\" + productU.productId + ".jpg", true);
                                 }
-                                System.IO.File.Copy(fileName, path + @"\" + productU.productId + ".jpg",true);
                                 MessageBox.Show("Actualizado Correctamente");
                                 CloseAction();
                             }
