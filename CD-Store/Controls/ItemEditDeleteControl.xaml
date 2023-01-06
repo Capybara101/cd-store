@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="CD_Store.Controls.ItemEditDeleteControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CD_Store.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d"
+             >
+     <UserControl.Resources>
+        <Style x:Key="styleBtnImg" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border x:Name="bordeItem" Width="125" Height="175" Background="#7a8aa7" CornerRadius="10" Padding="5" MouseLeftButtonDown="bordeItem_MouseLeftButtonDown" Margin="5,5,5,0">
+        <StackPanel Orientation="Vertical">
+            <Border Width="115" Height="120" BorderThickness="1" BorderBrush="White" CornerRadius="10" Background="White" >
+                <Grid>
+                    <Image Name="imgImage" Stretch="Fill" Margin="2" Source="{Binding ProductPath}" />
+                    <StackPanel Name="stackOcultar"  Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Hidden" >
+                        <Button Name="btnEditar" Width="50" Height="55" Margin="0 0 0 1" Background="#ffe089" Click="btnEditar_Click" BorderBrush="{x:Null}">
+                            <fa:ImageAwesome Icon="Pencil"  Width="45"  Height="30" Stretch="Fill" >
+                                <fa:ImageAwesome.Foreground>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFABDA72"  Offset="0"/>
+                                        <GradientStop Color="#FF4F740E"  Offset="1"/>
+                                    </LinearGradientBrush>
+                                </fa:ImageAwesome.Foreground>
+                            </fa:ImageAwesome>
+                        </Button>
+                        <Button Name="btnEliminar" Width="50" Height="55" Click="btnEliminar_Click" Background="#ffe089">
+                            <fa:ImageAwesome Icon="Trash" Width="45"  Height="30" Stretch="Fill" >
+                                <fa:ImageAwesome.Foreground>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF4F740E" Offset="0"/>
+                                        <GradientStop Color="#FFABDA72" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </fa:ImageAwesome.Foreground>
+                            </fa:ImageAwesome>
+                        </Button>
+                    </StackPanel>
+                    <TextBlock FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="80" TextAlignment="Center" FontSize="15" >
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat=" {0} bs.">
+                                <Binding Path="UnitPrice"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <TextBlock Text="{Binding ProductName}" FontSize="13" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>
+        </StackPanel>
+    </Border>
+</UserControl>
