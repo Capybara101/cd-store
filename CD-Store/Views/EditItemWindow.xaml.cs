@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CD_Store.Models;
+using CD_Store.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +24,12 @@ namespace CD_Store.Views
         public EditItemWindow(int ProductID, string ProductName, double UnitPrice, string ProductPath)
         {
             InitializeComponent();
-            ProductNameEdit.Text = ProductName;
-            ProductUnitPriceEdit.Text = UnitPrice.ToString();
-            ShowUpdateProductImage.Source = new BitmapImage(new Uri(ProductPath));
+            Product product = new Product();
+            product.productId = ProductID;
+            product.name = ProductName;
+            product.unitPrice = UnitPrice;
+            product.productPath = ProductPath;
+            this.DataContext = new VMEditProduct(product);
         }
     }
 }
