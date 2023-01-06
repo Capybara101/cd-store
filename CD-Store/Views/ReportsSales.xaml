@@ -16,6 +16,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="REPORTE DE VENTAS" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="34" FontFamily="Century Gothic"/>
 
@@ -131,5 +132,10 @@
 
             </DataGrid>
         </Grid>
+        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="34" FontWeight="Bold" FontFamily="Century Gothic">
+            <Run Text="Total:"/>
+            <Run Text="{Binding TotalVentas}"/>
+            <Run Text="bs."/>
+        </TextBlock>
     </Grid>
 </UserControl>

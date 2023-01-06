@@ -18,6 +18,13 @@ namespace CD_Store.ViewModels
         private string fechaFinal;
         private ObservableCollection<Category> categoryList;
         private int categoryIDSelected;
+        private double totalVentas;
+
+        public double TotalVentas
+        {
+            get { return totalVentas; }
+            set { totalVentas = value; OnPropertyChanged("TotalVentas"); }
+        }
 
         public ObservableCollection<ReportDetail> Datalist
         {
@@ -52,6 +59,7 @@ namespace CD_Store.ViewModels
         public VMReports()
         {
             CategoryList = new ObservableCollection<Category>();
+            TotalVentas = 0;
             CategoryIDSelected = 0;
             GetCategories();
             foreach (SaleDetail saleDetail in new SaleDetail().ReadSaleDetailTable("", "", ""))
@@ -66,6 +74,7 @@ namespace CD_Store.ViewModels
                         Fecha_Registro = saleDetail.registerDate
 					}
 				);
+                TotalVentas += saleDetail.quantity * saleDetail.unitPrice;
 			}
         }
 
@@ -75,6 +84,7 @@ namespace CD_Store.ViewModels
             {
                 return new RelayCommand(() =>
                 {
+                    TotalVentas = 0;
                     if ((!string.IsNullOrWhiteSpace(FechaInicio) && !DateTime.TryParseExact(FechaInicio, "dd/MM/yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out DateTime dateValue1))
                         || (!string.IsNullOrWhiteSpace(FechaFinal) && !DateTime.TryParseExact(FechaFinal, "dd/MM/yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out DateTime dateValue2)))
                     {
@@ -94,6 +104,7 @@ namespace CD_Store.ViewModels
                                 Total = saleDetail.quantity * saleDetail.unitPrice,
                                 Fecha_Registro = saleDetail.registerDate
                             });
+                            TotalVentas += saleDetail.quantity * saleDetail.unitPrice;
                         }
                     }
                 });
