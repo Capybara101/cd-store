@@ -77,7 +77,14 @@ namespace CD_Store.Controls
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-
+            var res=MessageBox.Show("¿Esta seguro de eliminar el producto?","Eliminar Producto");
+            if (res == MessageBoxResult.OK)
+            {
+                Product product = new Product();
+                product.DeleteProduct(productId);
+                this.Visibility = Visibility.Collapsed;
+            }
+    
         }
 
         public void Seleccionar()

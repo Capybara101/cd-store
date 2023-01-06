@@ -75,7 +75,7 @@ namespace CD_Store.Models
                 using (SQLiteConnection connection = new SQLiteConnection(dbFile))
                 {
                     connection.Open();
-                    SQLiteCommand command = new SQLiteCommand("SELECT * FROM product", connection);
+                    SQLiteCommand command = new SQLiteCommand("SELECT * FROM product WHERE status=1", connection);
                     SQLiteDataReader reader = command.ExecuteReader();
                     List<Product> allProducts = new List<Product>();
                     while (reader.Read())
