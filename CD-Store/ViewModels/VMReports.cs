@@ -16,6 +16,8 @@ namespace CD_Store.ViewModels
         private ObservableCollection<ReportDetail> datalist = new ObservableCollection<ReportDetail>();
         private string fechaInicio;
         private string fechaFinal;
+        private ObservableCollection<Category> categoryList;
+        private int categoryIDSelected;
 
         public ObservableCollection<ReportDetail> Datalist
         {
@@ -35,9 +37,24 @@ namespace CD_Store.ViewModels
             set { fechaFinal = value; }
         }
 
+        public ObservableCollection<Category> CategoryList
+        {
+            get { return categoryList; }
+            set { categoryList = value; OnPropertyChanged("CategoryList"); }
+        }
+
+        public int CategoryIDSelected
+        {
+            get { return categoryIDSelected; }
+            set { categoryIDSelected = value; OnPropertyChanged("CategoryIDSelected"); }
+        }
+
         public VMReports()
-		{
-            foreach(SaleDetail saleDetail in new SaleDetail().ReadSaleDetailTable("", ""))
+        {
+            CategoryList = new ObservableCollection<Category>();
+            CategoryIDSelected = 0;
+            GetCategories();
+            foreach (SaleDetail saleDetail in new SaleDetail().ReadSaleDetailTable("", "", ""))
 			{
 				Datalist.Add(
 					new ReportDetail
@@ -58,7 +75,7 @@ namespace CD_Store.ViewModels
             {
                 return new RelayCommand(() =>
                 {
-                    if((!string.IsNullOrWhiteSpace(FechaInicio) && !DateTime.TryParseExact(FechaInicio, "dd/MM/yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out DateTime dateValue1))
+                    if ((!string.IsNullOrWhiteSpace(FechaInicio) && !DateTime.TryParseExact(FechaInicio, "dd/MM/yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out DateTime dateValue1))
                         || (!string.IsNullOrWhiteSpace(FechaFinal) && !DateTime.TryParseExact(FechaFinal, "dd/MM/yyyy", new CultureInfo("en-US"), DateTimeStyles.None, out DateTime dateValue2)))
                     {
                         MessageBox.Show("La fecha debe tener el formato dd/MM/yyyy.\n(Por ejemplo: 24/09/2000)", "La fecha está en el formato incorrecto.", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -66,7 +83,9 @@ namespace CD_Store.ViewModels
                     else
                     {
                         Datalist.Clear();
-                        foreach (SaleDetail saleDetail in new SaleDetail().ReadSaleDetailTable(FechaInicio, FechaFinal))
+                        string CategoryIDString = "";
+                        if (CategoryIDSelected > 0) CategoryIDString = CategoryIDSelected.ToString();
+                        foreach (SaleDetail saleDetail in new SaleDetail().ReadSaleDetailTable(FechaInicio, FechaFinal, CategoryIDString))
                         {
                             Datalist.Add(new ReportDetail {
                                 Nombre = new Product().GetName(saleDetail.productId),
@@ -79,6 +98,13 @@ namespace CD_Store.ViewModels
                     }
                 });
             }
+        }
+
+        Category category = new Category();
+        private void GetCategories()
+        {
+            CategoryList.Add(new Category(0, "Todas las Categorias"));
+            foreach (Category cat in category.ReadCategoryTable()) CategoryList.Add(cat); 
         }
 
         public class ReportDetail

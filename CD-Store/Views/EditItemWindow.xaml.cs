@@ -21,7 +21,7 @@ namespace CD_Store.Views
     /// </summary>
     public partial class EditItemWindow : Window
     {
-        public EditItemWindow(int ProductID, string ProductName, double UnitPrice, string ProductPath)
+        public EditItemWindow(int ProductID, int CategoryId, string ProductName, double UnitPrice, string ProductPath)
         {
             InitializeComponent();
             Product product = new Product();
@@ -29,6 +29,7 @@ namespace CD_Store.Views
             product.name = ProductName;
             product.unitPrice = UnitPrice;
             product.productPath = ProductPath;
+            product.categoryId = CategoryId;
 
             VMEditProduct vm = new VMEditProduct(product);
             this.DataContext = vm;

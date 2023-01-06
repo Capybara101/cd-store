@@ -68,7 +68,7 @@ namespace CD_Store.Models
             }
         }
 
-        public List<SaleDetail> ReadSaleDetailTable(string startingDate, string endingDate)
+        public List<SaleDetail> ReadSaleDetailTable(string startingDate, string endingDate, string categoryId)
         {
             try
             {
@@ -78,7 +78,13 @@ namespace CD_Store.Models
                     connection.Open();
                     if (startingDate == "" || startingDate == null) startingDate = "01/01/0001";
                     if (endingDate == "" || endingDate == null) endingDate = "31/12/3000";
-                    SQLiteCommand command = new SQLiteCommand($"SELECT * FROM saleDetail WHERE strftime('%d/%m/%Y', registerDate) BETWEEN '{startingDate}' AND '{endingDate}'", connection);
+                    SQLiteCommand command = new SQLiteCommand($"SELECT saleDetail.* FROM saleDetail INNER JOIN product ON saleDetail.productId = product.productId " +
+                            $"WHERE strftime('%d/%m/%Y', saleDetail.registerDate) BETWEEN '{startingDate}' AND '{endingDate}'", connection);
+                    if (categoryId != "")
+                    {
+                        command = new SQLiteCommand($"SELECT saleDetail.* FROM saleDetail INNER JOIN product ON saleDetail.productId = product.productId " +
+                            $"WHERE product.categoryId = {categoryId} AND strftime('%d/%m/%Y', saleDetail.registerDate) BETWEEN '{startingDate}' AND '{endingDate}'", connection);
+                    }
                     SQLiteDataReader reader = command.ExecuteReader();
                     List<SaleDetail> allSaleDetails = new List<SaleDetail>();
                     while (reader.Read())
