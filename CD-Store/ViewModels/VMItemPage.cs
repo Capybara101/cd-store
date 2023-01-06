@@ -111,7 +111,6 @@ namespace CD_Store.ViewModels
                 {
                     try
                     {
-                        
                         if(ProductName!=string.Empty && categoryIDSelected!=0 && productUnitPrice > 0 && fileName!=null && fileName!=string.Empty )
                         {
                             product.name = ProductName.Trim().ToUpper();
@@ -120,7 +119,6 @@ namespace CD_Store.ViewModels
                             int id = product.InsertProduct();
                             if (id > 0)
                             {
-                          
                                 string path = Directory.GetCurrentDirectory() + @"\imagenes";
                                 if (!Directory.Exists(path))
                                 {
@@ -135,7 +133,7 @@ namespace CD_Store.ViewModels
                         }
                         else
                         {
-                            MessageBox.Show("Debe Llenar Todos Los Campos de Texto Y Selecionar Una Imagen");
+                            MessageBox.Show("Debe llenar todos los Campos de Texto y seleccionar una Imagen");
                         }
                         
                     }

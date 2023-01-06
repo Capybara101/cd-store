@@ -7,25 +7,33 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" Width="1701">
     <Grid Margin="50">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="2">
-            <ItemsControl ItemsSource="{Binding Items}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+
+        <TextBlock Grid.Row="0" FontWeight="Bold" Text="EDITAR/ELIMINAR PRODUCTOS" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="34" FontFamily="Century Gothic" Margin="0,0,0,0"/>
+        <TextBlock Grid.Row="1" Text="Productos" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="28" FontFamily="Century Gothic" Margin="0,0,0,0"/>
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderBrush="#696969" BorderThickness="1" CornerRadius="15" Margin="0,20,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.ColumnSpan="2" >
+                <ItemsControl ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
     </Grid>
 </UserControl>

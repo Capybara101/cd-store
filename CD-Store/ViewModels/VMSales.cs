@@ -15,6 +15,7 @@ namespace CD_Store.ViewModels
 {
     class VMSales : VMBase
     {
+
         #region atributes
         private ObservableCollection<ItemControl> items = new ObservableCollection<ItemControl>();
         private ObservableCollection<ItemControl> itemsSelected;
