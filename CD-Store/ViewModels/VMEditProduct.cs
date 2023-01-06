@@ -10,21 +10,18 @@ using System.Windows.Media.Imaging;
 
 namespace CD_Store.ViewModels
 {
-    class VMItemPage : VMBase
+    class VMEditProduct : VMBase
     {
+        
         #region Properties
         private string productName;
-        private string newProductCategory = "";
         private double productUnitPrice;
         string fileName;
         Category category = new Category();
-        Product product = new Product();
+        Product productU = new Product();
         private ObservableCollection<Category> categoryList;
         private int categoryIDSelected;
         private BitmapImage imagen;
-        private string categoryVisivility = "Hidden";
-
-
 
 
 
@@ -32,11 +29,6 @@ namespace CD_Store.ViewModels
         {
             get { return imagen; }
             set { imagen = value; OnPropertyChanged("Imagen"); }
-        }
-        public string CategoryVisivility
-        {
-            get { return categoryVisivility; }
-            set { categoryVisivility = value; OnPropertyChanged("CategoryVisivility"); }
         }
         public int CategoryIDSelected
         {
@@ -54,13 +46,6 @@ namespace CD_Store.ViewModels
             set { productUnitPrice = value; OnPropertyChanged("ProductUnitPrice"); }
         }
 
-        public string NewProductCategory
-        {
-            get { return newProductCategory; }
-            set { newProductCategory = value; OnPropertyChanged("NewProductCategory"); }
-        }
-
-
         public string ProductName
         {
             get { return productName; }
@@ -68,42 +53,18 @@ namespace CD_Store.ViewModels
         }
         #endregion
         #region contructor
-        public VMItemPage()
-        {
+        public VMEditProduct(Product product)
+        { 
             GetCategories();
+            ProductName = product.name;
+            ProductUnitPrice = product.unitPrice;
+            Imagen=new BitmapImage(new Uri(product.productPath));
+            productU.productId = product.productId;
         }
         #endregion
         #region Commands
-        public ICommand AddNewProductCategory
-        {
-            get
-            {
-                return new RelayCommand(() =>
-                {
-                    if (newProductCategory.Trim().Length == 0) { MessageBox.Show("Escriba un nombre para la categoría"); return; }
-                    category.name = newProductCategory.ToUpper();
-                    category.InsertCategory();
-                    NewProductCategory = "";
-                    MessageBox.Show("Categoría agregada con éxito");
-                    CategoryVisivility = "Hidden";
-                    GetCategories();
-                });
-            }
-        }
-        public ICommand CategoryVisivilityCommand
-        {
-            get
-            {
-                return new RelayCommand(()=>
-                {
-                    if (CategoryVisivility == "Visible") CategoryVisivility = "Hidden";
-                    else CategoryVisivility = "Visible";
-
-
-                });
-            }
-        }
-        public ICommand AddNewProduct
+     
+        public ICommand EditProduct
         {
             get
             {
@@ -111,22 +72,22 @@ namespace CD_Store.ViewModels
                 {
                     try
                     {
-                        
-                        if(ProductName!=string.Empty && categoryIDSelected!=0 && productUnitPrice > 0 && fileName!=null && fileName!=string.Empty )
+
+                        if (ProductName != string.Empty && categoryIDSelected != 0 && productUnitPrice > 0 && fileName != null && fileName != string.Empty)
                         {
-                            product.name = ProductName.Trim().ToUpper();
-                            product.categoryId = categoryIDSelected;
-                            product.unitPrice = ProductUnitPrice;
-                            int id = product.InsertProduct();
-                            if (id > 0)
+                            productU.name = ProductName.Trim().ToUpper();
+                            productU.categoryId = categoryIDSelected;
+                            productU.unitPrice = ProductUnitPrice;
+                            int res = productU.UpdateProduct();
+                            if (res > 0)
                             {
-                          
+
                                 string path = Directory.GetCurrentDirectory() + @"\imagenes";
                                 if (!Directory.Exists(path))
                                 {
                                     Directory.CreateDirectory(path);
                                 }
-                                System.IO.File.Copy(fileName, path + @"\" + id + ".jpg");
+                                System.IO.File.Copy(fileName, path + @"\" + productU.productId + ".jpg",true);
                                 MessageBox.Show("Creado Correctamente");
                                 ProductName = "";
                                 ProductUnitPrice = 0;
@@ -137,7 +98,7 @@ namespace CD_Store.ViewModels
                         {
                             MessageBox.Show("Debe Llenar Todos Los Campos de Texto Y Selecionar Una Imagen");
                         }
-                        
+
                     }
                     catch (System.Exception e)
                     {
@@ -175,6 +136,6 @@ namespace CD_Store.ViewModels
             CategoryList = category.ReadCategoryTable();
         }
         #endregion
-
+    
     }
 }

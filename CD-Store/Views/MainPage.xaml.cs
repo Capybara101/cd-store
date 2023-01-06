@@ -38,6 +38,9 @@ namespace CD_Store.Views
             editDeleteItem = new EditDeleteItem();
             sqliteClass.CheckSQLite();
             Title = "CD STORE";
+
+            MainContainer.Children.Clear();
+            MainContainer.Children.Add(new ViewSales());
         }
 
         private void SalesBttn_Click(object sender, RoutedEventArgs e)
@@ -64,7 +67,7 @@ namespace CD_Store.Views
         private void UpdateDeleteItem_Click(object sender, RoutedEventArgs e)
         {
             MainContainer.Children.Clear();
-            MainContainer.Children.Add(editDeleteItem);
+            MainContainer.Children.Add(new EditDeleteItem());
             Title = "Editar y Eliminar Producto";
         }
     }
