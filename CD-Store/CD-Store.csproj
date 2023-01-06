@@ -96,17 +96,24 @@
     <Compile Include="Controls\ItemControl.xaml.cs">
       <DependentUpon>ItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ItemEditDeleteControl.xaml.cs">
+      <DependentUpon>ItemEditDeleteControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Models\SaleDetail.cs" />
     <Compile Include="Models\SQLiteClass.cs" />
     <Compile Include="ViewModels\VMBase.cs" />
+    <Compile Include="ViewModels\VMItemEditDeletePage.cs" />
     <Compile Include="ViewModels\VMItemPage.cs" />
     <Compile Include="ViewModels\VMReports.cs" />
     <Compile Include="ViewModels\VMSales.cs" />
     <Compile Include="Views\EditDeleteItem.xaml.cs">
       <DependentUpon>EditDeleteItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditItemWindow.xaml.cs">
+      <DependentUpon>EditItemWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemPage.xaml.cs">
       <DependentUpon>ItemPage.xaml</DependentUpon>
@@ -128,7 +135,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\ItemEditDeleteControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EditDeleteItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

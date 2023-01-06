@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CD_Store.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace CD_Store.Views
         public EditDeleteItem()
         {
             InitializeComponent();
+            DataContext = new VMItemEditDeletePage();
         }
     }
 }
