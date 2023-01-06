@@ -29,7 +29,11 @@ namespace CD_Store.Views
             product.name = ProductName;
             product.unitPrice = UnitPrice;
             product.productPath = ProductPath;
-            this.DataContext = new VMEditProduct(product);
+
+            VMEditProduct vm = new VMEditProduct(product);
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
     }
 }

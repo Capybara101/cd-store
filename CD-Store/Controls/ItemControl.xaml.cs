@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +28,8 @@ namespace CD_Store.Controls
         private double unitPrice;
         private int quantity;
         private string productName;
-        private string productPath;
+        private BitmapImage productPath;
+        private string productPathString;
 
         public bool IsSelected
         {
@@ -59,10 +61,16 @@ namespace CD_Store.Controls
             set { productId = value; }
         }
 
-        public string ProductPath
+        public BitmapImage ProductPath
         {
             get { return productPath; }
             set { productPath = value; }
+        }
+
+        public string ProductPathString
+        {
+            get { return productPathString; }
+            set { productPathString = value; }
         }
 
 
@@ -76,7 +84,16 @@ namespace CD_Store.Controls
             Quantity = product.quantity;
             ProductID = product.productId;
             ProductName = product.name;
-            ProductPath = product.productPath;
+
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(product.productPath, UriKind.Absolute);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            ProductPath = bitmap;
+            //ProductPath = new BitmapImage(new Uri(product.productPath, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
+
+            ProductPathString = product.productPath;
             isSelected = false;
             DataContext = this;
         }

@@ -1,9 +1,11 @@
 ﻿using CD_Store.Models;
+using CD_Store.Views;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Net.Cache;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -22,8 +24,6 @@ namespace CD_Store.ViewModels
         private ObservableCollection<Category> categoryList;
         private int categoryIDSelected;
         private BitmapImage imagen;
-
-
 
         public BitmapImage Imagen
         {
@@ -51,19 +51,30 @@ namespace CD_Store.ViewModels
             get { return productName; }
             set { productName = value; OnPropertyChanged("ProductName"); }
         }
+
+        public Action CloseAction { get; set; }
         #endregion
-        #region contructor
+
+        #region constructor
         public VMEditProduct(Product product)
         { 
             GetCategories();
             ProductName = product.name;
             ProductUnitPrice = product.unitPrice;
-            Imagen=new BitmapImage(new Uri(product.productPath));
+
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(product.productPath);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            Imagen = bitmap;
+            //Imagen = new BitmapImage(new Uri(product.productPath), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
+
             productU.productId = product.productId;
         }
         #endregion
+
         #region Commands
-     
         public ICommand EditProduct
         {
             get
@@ -72,8 +83,7 @@ namespace CD_Store.ViewModels
                 {
                     try
                     {
-
-                        if (ProductName != string.Empty && categoryIDSelected != 0 && productUnitPrice > 0 && fileName != null && fileName != string.Empty)
+                        if (ProductName != string.Empty && categoryIDSelected != 0 && productUnitPrice > 0)
                         {
                             productU.name = ProductName.Trim().ToUpper();
                             productU.categoryId = categoryIDSelected;
@@ -81,24 +91,20 @@ namespace CD_Store.ViewModels
                             int res = productU.UpdateProduct();
                             if (res > 0)
                             {
-
                                 string path = Directory.GetCurrentDirectory() + @"\imagenes";
                                 if (!Directory.Exists(path))
                                 {
                                     Directory.CreateDirectory(path);
                                 }
                                 System.IO.File.Copy(fileName, path + @"\" + productU.productId + ".jpg",true);
-                                MessageBox.Show("Creado Correctamente");
-                                ProductName = "";
-                                ProductUnitPrice = 0;
-                                Imagen = null;
+                                MessageBox.Show("Actualizado Correctamente");
+                                CloseAction();
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Debe Llenar Todos Los Campos de Texto Y Selecionar Una Imagen");
+                            MessageBox.Show("Debe llenar todos los Campos de Texto y seleccionar una Imagen");
                         }
-
                     }
                     catch (System.Exception e)
                     {
@@ -120,6 +126,7 @@ namespace CD_Store.ViewModels
                         if (ofd.ShowDialog() == true)
                         {
                             fileName = ofd.FileName;
+                            Imagen = null;
                             Imagen = new BitmapImage(new Uri(fileName));
                         }
                     }

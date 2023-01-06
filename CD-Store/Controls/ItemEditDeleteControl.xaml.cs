@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,7 +26,8 @@ namespace CD_Store.Controls
         private int productId;
         private double unitPrice;
         private string productName;
-        private string productPath;
+        private BitmapImage productPath;
+        private string productPathString;
 
         public bool IsSelected
         {
@@ -51,10 +53,16 @@ namespace CD_Store.Controls
             set { productId = value; }
         }
 
-        public string ProductPath
+        public BitmapImage ProductPath
         {
             get { return productPath; }
             set { productPath = value; }
+        }
+
+        public string ProductPathString
+        {
+            get { return productPathString; }
+            set { productPathString = value; }
         }
 
         public ItemEditDeleteControl(Product product)
@@ -63,7 +71,16 @@ namespace CD_Store.Controls
             UnitPrice = product.unitPrice;
             ProductID = product.productId;
             ProductName = product.name;
-            ProductPath = product.productPath;
+
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(product.productPath);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            ProductPath = bitmap;
+            //ProductPath = new BitmapImage(new Uri(product.productPath), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
+
+            ProductPathString = product.productPath;
             isSelected = false;
             DataContext = this;
         }
@@ -71,18 +88,19 @@ namespace CD_Store.Controls
 
         private void btnEditar_Click(object sender, RoutedEventArgs e)
         {
-            EditItemWindow editItemWindow = new EditItemWindow(ProductID, ProductName, UnitPrice, ProductPath);
-            editItemWindow.Show();
+            EditItemWindow editItemWindow = new EditItemWindow(ProductID, ProductName, UnitPrice, ProductPathString);
+            editItemWindow.ShowDialog();
         }
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            var res=MessageBox.Show("¿Esta seguro de eliminar el producto?","Eliminar Producto");
-            if (res == MessageBoxResult.OK)
+            var res=MessageBox.Show("¿Está seguro de eliminar el producto?", "Eliminar Producto", MessageBoxButton.YesNo);
+            if (res == MessageBoxResult.Yes)
             {
                 Product product = new Product();
                 product.DeleteProduct(productId);
                 this.Visibility = Visibility.Collapsed;
+                MessageBox.Show("Producto Eliminado", "Eliminar Producto");
             }
     
         }
